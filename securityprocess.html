@@ -63,11 +63,45 @@
     <div class="row">
       <div class="col-md-9">
         <div class="terms-content">
-          <h3> COMMITMENTS BY THE SERVICE PROVIDER </h3>
+          <h2> COMMITMENTS BY THE SERVICE PROVIDER </h2>
           <p>The obligations regarding the security and confidentiality of personal data, where applicable, shall be passed on to potential suppliers or subcontractors of Parties having access to such data. It is the responsibility of the Service Provider to implement appropriate technical and organizational measures to protect personal data against accidental or unlawful destruction, accidental loss, unauthorized alteration, dissemination or access, in particular In the context of the transmission of this data through a non securized network  as well as against any form of unlawful treatment.</p>
           <h3>OpenID Connect Protocol Security Requirements</h3>
           <p> The Service Provider shall implement the technical and organizational security measures necessary to ensure, within its perimeter: </p>
-          
+          <ul>
+              <li>Non-disclosure of functional and technical data exchanged under the protocol to an unauthorized third party,</li>
+            <li>Putting in place measures to prevent their escape in case of intrusion,</li>
+            <li>The confidentiality and integrity of the secrets exchanged (passwords, cryptographic keys…)</li>
+          </ul>
+          <p>The Service Provider also meets the following requirements:</p>
+          <ul>
+            <li>Implement the necessary security measures to ensure the secure storage of the secret client and Open Id Connect client,</li>
+            <li>Systematically validate all input data, if possible by using blank lists, to prevent, for example, their manipulation by inserting specific characters. In particular: check the format of authorization and access tokens (token_Id),</li>
+            <li>Check the nonce parameter of the access token. The latter is made compulsory during the call to XConnect to avoid the replay of the requests,</li>
+            <li>Check the expiration date of the access token,</li>
+            <li>Check the domain name of the server returned with the name used for the server-to-server call (FS -> FD call).</li>
+           </ul>
+          <h3> Monitoring and awareness </h3>
+          <p>The Service Provider implements an advanced watch on its perimeter to detect cyber criminal attacks on services related to XConnect. In the event of an attack, it undertakes to alert FDS and all the partners of the security chain.
+The Service Provider trains and sensitizes the players under its authority to the security and stakes of XConnect (including developers and target agents using XConnect).
+</p>
+          <h3>Global recommendations for Secure Implementation of Digital Services</h3>
+          <p>The Service Provider is recommended to use standard recommendations for securing web applications in particular:</p>
+          <ul>
+            <li>Apply defense principles to application software and hardware architectures. The implementation of these principles by appropriate measures is to be considered at the design stage, in view of the risks and threats to which the application will be exposed,</li>
+            <li>Secure the administration process using secure protocols and restrict administrative tasks to only duly authenticated and authorized administrative stations,</li>
+            <li>Apply the principle of least privilege to all elements of the system ("anything that is not explicitly authorized is prohibited by default"),</li>
+            <li>Systematically check the input data of the queries, whether functional or technical and from whatever source.</li>
+          </ul>
+          <h2>COMMITMENT BY FDS</h2>
+          <h3>Regulatory Compliance and security Measures</h3>
+          <p>FDS implements the appropriate technical and organizational security measures to protect the data processed and stored within the framework of the service, in the light of the security objectives identified following the analysis of security risks. In particular, these measures concern</p>
+          <ul>
+            <li>Systematic monitoring of all input parameters to reduce the risk of injection. FDS implements mechanisms to block customers in case of repeated failures in order to avoid brute force attacks. This can go as far as disconnecting a service provide in the event of a critical threat,</li>
+            <li>The robustness of the secrets, their safe storage and transmission as well as their regular renewal</li>
+            <li>In general: the application of defense principles in depth, particularly in terms of managing access rights to various components of the system (reverse proxies, application and data servers, etc.).</li>
+          </ul>
+          <h3>Incident Management</h3>
+          <p>FDS provides service providers with incident support based on a process described on- Quality of Service and Support Channel Terms page</p>
           <h3>Support</h3>
           <p>XConnect provides its service provider partners the following email address: contact@fiatope.com for any need on the implementation XConnect.</p>
         </div>
