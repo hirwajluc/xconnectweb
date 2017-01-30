@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>X connect</title>
+    <link rel="icon" href="assets/logos/favicon.png" type="image/png" sizes="16x16">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="X connect">
+    <meta name="keywords" content="X connect">
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Oswald:100,300,400,500" rel="stylesheet" type="text/css">
+    <link href="assets/css/style.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+
+<body data-spy="scroll" data-target="#side-nav" data-offset="70">
+    <div class="container">
+        <nav class="navbar navbar-default navbar-fixed-top affix" role="navigation" data-spy="affix" data-offset-top="70">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header page-scroll">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                      <span class="sr-only">Toggle navigation</span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand page-scroll" href="index">
+                        <!-- <img src="assets/logos/logo.png" height="35" width="35" alt="Mu" /> -->
+                        Xconnect
+                    </a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a class="page-scroll" href="index">Home</a></li>
+                        <li><a class="page-scroll" href="demo">Demo</a></li>
+                        <li><a class="page-scroll" href="developers">Developers</a></li>
+                        <li><a class="page-scroll" href="blog">Blog</a></li>
+                        <li><a class="page-scroll" href="faq">FAQ</a></li>
+                        <li><a href="contact">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- /.navbar-collapse -->
+    </div>
+    <div class="main" id="main">
+        <div class="intro">
+        </div>
+    </div>
+    <div class="demo-description">
+      <div class="container">
+        <h2> FAQ </h2>
+      </div>
+    </div>
+    <div class="container bs-docs-container">
+      <div class="row">
+        <div class="col-md-9" role="main">
+          <div class="bs-docs-section">
+            <h2 id="general-consideration">General considerations</h2>
+            <div class="padding-left-20">
+              <h3 id="general-consideration-ask">Which HTTP security is used for X Connect?</h3>
+              <p>TLS 1.2 is the version of the HTPS protocol being used. Preceent versions are not accepted by X Connect.</p>
+            </div>
+          </div>
+          <div class="bs-docs-section">
+            <h2>Service Provider</h2>
+            <div class="padding-left-20">
+              <h3 id="1">Which HTTP security is used for X Connect?</h3>
+              <p>The implementation process follows the following steps :</p>
+              <p><b>Steps</b></p>
+              <ul>
+                <li><p>Sign-Up to X COnnect</p></li>
+                <li><p>Integration and Configuration of an OpenID Connect Client</p></li>
+                <li><p>Integration of X Connect button and Kit</p></li>
+                <li><p>Implementation of the disconnection</p></li>
+                <li><p>Error Handling between the Service Provider and X Connect</p></li>
+                <li><p>Expiration of Data</p></li>
+                <li><p>Acceptance Tests</p></li>
+              </ul>
+              <p>The details of each of these sections are available on the Developers page</p>
+              <h3 id="2">What are the key point of attention when integrating the button?</h3>
+              <p>The X Connect button should be available on the connection as well on the sign-up page.</p>
+              <h3 id="3">Where do I find the integration button of X Connect?</h3>
+              <p>The Integration buton is available on the Developers page.</p>
+              <h3 id="4">How do I reconciliate the pivotal Identity returned by X Connect with my existing users base?</h3>
+              <p><b>1st case :</b> The user creates a new account at Service Provider by using X Connect.</p>
+              <p>You take all or part of the data (the sub and pivotal identity) and you do create an account on your system by telling the user that they will have to use X Connect to access that account onwards (this is our preconisation at XConnect).</p>
+              <p><b>2nd cas :</b> the user would like to use X Connect while already having an account.</p>
+              <p>The Service Provider has to do what is called a reconciliation: this happens by asking the user a secret that you share with them (Customer ID, last nvoice value,…). or by asking them to enter their login and password</p>
+              <p>The sub is then associated to an exiting account. Next time the user logs in with X Connect, the Service Provider fetches the sub and display the corresponfing user account at their side.</p>
+              <h3 id="5">Do it get the same sub if the user connects through different Authentication Providers?</h3>
+              <p>For the time being no but this will soon be the standard. This does not pause any problem today because the SP would generally integrate a specific Authentication Provider.</p>
+              <h3 id="6">For any given user do all SP receive the same sub?</h3>
+              <p>No. X Connect returns a different sub for the same user connecting to a different SP .</p>
+              <h3 id="7">Is the received sub linked to the user identity?</h3>
+              <p>No. the sub is randomly generated.</p>
+              <h3 id="8">What is the length od the syb field?</h3>
+              <p>The length as defined in the standardd is 255 caracters maximum.</p>
+              <h3 id="9">Can I initiate the OpenID COnnect Kinematic on the authorize endpoint and request for userInfo later?</h3>
+              <p>No, The complete kinematic has to run in a single time block..</p>
+              <h3 id="10">Is it possible to identify the Service Provider via which the user did authenticate?</h3>
+              <p>For the time being, Yes..</p>
+              <h3 id="11">How does the Service Provider logo gets displayed?</h3>
+              <p>Tbd.</p>
+              <h3 id="12">How many users can take benefit of France Connect?</h3>
+              <p>It depends on the user base at authentication Providers side. </p>
+              <h3 id="13">As an X Connect Integrator should i create as many accounts as there are Service Providers to integrate?</h3>
+              <p>Yes it is mandaotry to crate an X COnnect account for every Service Provider in order to obtain a different ClientID/Client Secret couple by SP. </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3" role="complementary">
+          <nav class="bs-docs-sidebar hidden-print hidden-sm hidden-xs affix" data-spy="affix" data-offset-top="250" id="side-nav">
+            <ul class="nav bs-docs-sidenav">
+              <li class="">
+                <a href="#general-consideration">General Consideration</a>
+                <ul class="nav">
+                  <li class="">
+                    <a href="#general-consideration-ask">Which HTTP security is used for X Connect?</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="">
+                <a href="#identify">Service Provider</a>
+                <ul class="nav">
+                  <li>
+                    <a href="#1">As a Service Provder how do i iplement X Connect?S</a>
+                  </li>
+                  <li>
+                    <a href="#2">What are the key point of attention when integrating the button?</a>
+                  </li>
+                  <li>
+                    <a href="#3">Where do I find the integration button of X Connect?</a>
+                  </li>
+                  <li>
+                    <a href="#4">How do I reconciliate the pivotal Identity returned by X Connect with my existing users base?</a>
+                  </li>
+                  <li>
+                    <a href="#5">Do it get the same sub if the user connects through different Authentication Providers?</a>
+                  </li>
+                  <li>
+                    <a href="#6">For any given user do all SP receve the same sub?</a>
+                  </li>
+                  <li>
+                    <a href="#7">Is the received sub linked to the user identity?</a>
+                  </li>
+                  <li>
+                    <a href="8">What is the length od the syb field?</a>
+                  </li>
+                  <li>
+                    <a href="#9">Can I initiate the OpenID COnnect Kinematic on the authorize endpoint and request for userInfo later?</a>
+                  </li>
+                  <li>
+                    <a href="#10">Is it possible to identify the Service Provider via which the user did authenticate?</a>
+                  </li>
+                  <li>
+                    <a href="#11">How does the Service Provider logo gets displayed?</a>
+                  </li>
+                  <li>
+                    <a href="#12">How many users can take benefit of France Connect?</a>
+                  </li>
+                  <li>
+                    <a href="#13">As an X Connect Integrator should i create as many accounts as there are Service Providers to integrate?</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Footer Section -->
+    <div class="footer">
+      <div class="container">
+        <div class="col-md-12 text-center">
+          <ul class="footer-menu">
+          <li><a href="index">Home</a></li>
+          <li><a href="contact">Contact</a></li>
+          <li><a href="terms">Terms & Privacy</a></li>
+          </ul>
+        <div class="footer-text">
+          <p>
+            Copyright © 2016 XConnect All Rights Reserved.
+          </p>
+        </div>
+      </div>
+    </div>
+</body>
+<!-- Jquery and Js Plugins -->
+<script type="text/javascript" src="assets/js/jquery-2.1.1.js"></script>
+<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="assets/js/custom.js"></script>
+
+</html>

@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>X connect</title>
+  <link rel="icon" href="assets/logos/favicon.png" type="image/png" sizes="16x16">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="X connect">
+  <meta name="keywords" content="X connect">
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Oswald:100,300,400,500" rel="stylesheet" type="text/css">
+  <link href="assets/css/style.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+
+<body data-spy="scroll" data-target="#side-nav" data-offset="70">
+  <div class="container">
+    <nav class="navbar navbar-default navbar-fixed-top affix" role="navigation" data-spy="affix" data-offset-top="70">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand page-scroll" href="index">
+            <!-- <img src="assets/logos/logo.png" height="35" width="35" alt="Mu" /> -->
+            Xconnect
+          </a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a class="page-scroll" href="index">Home</a></li>
+            <li><a class="page-scroll" href="demo">Demo</a></li>
+            <li><a class="page-scroll" href="developers">Developers</a></li>
+            <li><a class="page-scroll" href="blog">Blog</a></li>
+            <li><a class="page-scroll" href="faq">FAQ</a></li>
+            <li><a href="contact">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- /.navbar-collapse -->
+  </div>
+  <div class="main" id="main">
+    <div class="intro">
+    </div>
+  </div>
+  <div class="demo-description">
+    <div class="container">
+      <h2> Developpers </h2>
+    </div>
+  </div>
+  <div class="container bs-docs-container">
+    <div class="row">
+      <div class="col-md-9" role="main">
+        <div class="bs-docs-section">
+          <h1 class="page-header" id="baseconcepts">Base Concepts</h1>
+          <h2>The OpenID Connect protocol</h2>
+          <div class="padding-left-20">
+            <h3>INTRODUCTION</h3>
+            <p>The OpenID Connect protocol is at the heart of the interworking between Service Providers and X Connect. It is an overlay to the OAuth 2.0 protocol that makes it possible for Clients (Service Providers) to verify users identity by the means of an authorization server (called Identity Provider) implemented on the XConnect Gateway.</p>
+            <p>The Service Providers (SP) have to be OpenID Connect Clients and are also called Relying Parties.</p>
+            <p>The OIDC protocl specification lies here  http://openid.net/connect/. Herafter, we guide you trough the configuration of your OpenID Connect enabled application in order for your users to be able authenticate by XConnect. We also help you integrate the required fonctions into your application.</p>
+            <h3>STANDARD FLOWS</h3>
+            <p>The OpenID Connect protocol defines 3 REST calls done by the client (you as a Service Provider) and 4 endpoints, one on the client side and 3 on the Identity Provider side.</p>
+            <p>Beforehand, the client application would subscribe (manually) to the Identity Provider. Doing so, it indicates a callback URL (the URL to which the user will be redirected once authenticated). This URL is also called "callback endpoint". In return to the subscription, the Identity Provider gives the client a client ID and secret.</p>
+            <p>Whenever the user clicks on the XConnect authentication button at client side, the flow is as follows;  </p>
+            <ul>
+              <li><p>The client makes a redirection to the "authorization endpoint"at the Identity Provider with its client ID and callback URL among other parameters. The Identity Provider then redirects the user to the authentication page of the authentication service. If the user is able to correctly identifies theirself, the ID Provider sends back an authorization code to the clie  nt.</p></li>
+              <li><p>The client then makes a Web service call to the "token endpoint" of the ID provider with the authorization code it has received, and authenticates that request with its client ID and secret. The provider returns an access token (a base64 encoded string), an ID token (taking the form of a JSON Web token see  https://developer.atlassian.com/static/connect/docs/concepts/understanding-jwt.html) and somtimes a refresh token (a base64 encoded st  ring)</p></li>
+              <li><p>The client makes a Web service call to the "userInfo endpoint" of the ID Provider with the received access token and the ID Gateway sends back the user information to the client.</p></li>
+            </ul>
+            <h3>IN THE CASE OF X CONNECT</h3>
+            <p>The XCOnnect Gateway serves as an ID Provider and the flows between the Client and the Gateway are standard OpenID Connect flows.</p>
+          </div>
+          <h2>The Pivotal Identity</h2>
+          <div class="padding-left-20">
+            <p>The pivotal identity is part of the user data provided through the ID Gateway to Service Providers by relying on Authentication Providers (the user would rely on thier credentials at this Authentication Provider to log-in at the Client Aplication). The pivotal identity  helps fully identify the user.</p>
+            <table class="bordered box-shadow">
+              <thead>
+                <tr>
+                  <th colspan="3"><b>X Connect Personnal User</b></th>
+                </tr>
+                <tr>
+                  <th><b>Fields</b></th>
+                  <th><b>Type</b></th>
+                  <th><b>Description</b></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>given_name</td>
+                  <td>string</td>
+                  <td>the given name (OpenIDConnect standard)</td>
+                </tr>
+                <tr>
+                  <td>family_name</td>
+                  <td>string</td>
+                  <td>the family name of birth (OpenIDConnect standard)</td>
+
+                </tr>
+                <tr>
+                  <td>birthdate</td>
+                  <td>string</td>
+                  <td>the date of birth uner the following format YYYY-MM-DD (OpenIDConnect standard)</td>
+
+                </tr>
+                <tr>
+                  <td>gender</td>
+                  <td>string</td>
+                  <td>male for men, female for women (OpenIDConnect standard)</td>
+
+                </tr>
+                <tr>
+                  <td>birthplace</td>
+                  <td>string</td>
+                  <td>the birth place code (or a null string if birthplace is abroad)</td>
+
+                </tr>
+                <tr>
+                  <td>birthcountry</td>
+                  <td>string</td>
+                  <td>the birth country code </td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="bordered box-shadow">
+              <thead>
+                <tr>
+                  <th colspan="3"><b>X Connect Business User</b></th>
+                </tr>
+                <tr>
+                  <th><b>Fields</b></th>
+                  <th><b>Type</b></th>
+                  <th><b>Description</b></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>given_name</td>
+                  <td>string</td>
+                  <td>the given name (OpenIDConnect standard)</td>
+                </tr>
+                <tr>
+                  <td>family_name</td>
+                  <td>string</td>
+                  <td>the family name of birth (OpenIDConnect standard)</td>
+
+                </tr>
+                <tr>
+                  <td>email</td>
+                  <td>string</td>
+                  <td>user email address</td>
+
+                </tr>
+                <tr>
+                  <td>EntID</td>
+                  <td>string</td>
+                  <td>the company TIN number</td>
+
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="bs-docs-section">
+          <h1 class="page-header" id="identify">I want to identify/authenticate users via X Connect</h1>
+          <div class="padding-left-20">
+            <ul>
+              <li><p>Subscribe via this form : we will send you a client ID and client secret </p></li>
+              <li><p>Get an Openid Connect client</p>
+                <ul>
+                  <li><p>we provide you with example client application that interwork with X Connect: https://github.com/xconect/service-providers-examples</p></li>
+                  <li><p>other clients are available here http://openid.net/developers/libraries/. You need to choose an implementation which has "Relying Party" set at "yes". You may have to modify your client for it to be fullly compatible with the flow exhange detailed here?</p></li>
+                </ul>
+              </li>
+              <li><p>You will also have to configure our endpoint in your OpenID Connect application, your callback URL and your client ID and client secret</p></li>
+              <li><p>Insert on the authentication page of your application an X Connect button that points to your URL that triggers the first step of the OpenIDConnect kinematic. You can find some graphical resources here</p></li>
+            </ul>
+          </div>
+          <h2>Our Endpoints</h2>
+          <div class="padding-left-20">
+            <p>In X Connect Production envionment, these endpoints are avaiable using HTTPS. However, during the pilot phase we provide HTTP (non securre) endpoints. Make sure you do not connect your life applicaiton.</p>
+            <table class="bordered box-shadow">
+              <thead>
+                <tr>
+                  <th colspan="2"><b>X Connect Personal User</b></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>Authorization</b></td>
+                  <td>http://xconnect.herokuapp/authorize</td>
+                </tr>
+                <tr>
+                  <td><b>Token</b></td>
+                  <td>http://xconnect.herokuapp/token</td>
+
+                </tr>
+                <tr>
+                  <td><b>UserInfo</b></td>
+                  <td>http://xconnect.herokuapp/userinfo</td>
+
+                </tr>
+                <tr>
+                  <td>Logout</td>
+                  <td>http://xconnect.herokuapp/logout</td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="bordered box-shadow">
+              <thead>
+                <tr>
+                  <th colspan="2"><b>X Connect Personal User</b></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>Authorization</b></td>
+                  <td>http://xconnect-ent.herokuapp/authorize</td>
+                </tr>
+                <tr>
+                  <td><b>Token</b></td>
+                  <td>http://xconnect-ent.herokuapp/token</td>
+
+                </tr>
+                <tr>
+                  <td><b>UserInfo</b></td>
+                  <td>http://xconnect-ent.herokuapp/userinfo</td>
+
+                </tr>
+                <tr>
+                  <td>Logout</td>
+                  <td>http://xconnect-ent.herokuapp/logout</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <h2>Details of how it works</h2>
+          <div class="padding-left-20">
+            <p>Schéma to come</p>
+            <p>The retrieval of the pivotal identity should be done as an immediate follow-up to the precedent calls (authentication and code retrieval). it is not possible as of the implementation today to call this Web service at a different time.</p>
+          </div>
+          <h2>Flow details</h2>
+          <div class="padding-left-20">
+
+            <p>In the remainder of the page, "XC_URL" will refer to either "http://xconnect.herokuapp" or http://xconnect-ent.herokuapp</p>
+            <div class="box-shadow">
+              <p><b>&lt;XC_URL&gt;/authorize [Redirection]</b></p>
+              <hr>
+              <p><b>DESCRIPTION</b></p>
+              <div class="padding-left-20">
+                <p><b>Context : </b>The SP (Service Provider) redirects from the precedent request to /authorize in order to engage into the authentication phase</p>
+                <p><b>Origin : </b> Service Provider</p>
+                <p><b>Target :</b> XConnect Gateway</p>
+                <p><b>Call type :</b> navigator redirect </p>
+                <p>Note : it is possible to add aditionnal parameters along with the redirect_uri, to be passed after the ? under the following format " key=value". They will be sent back as such at return to the SP.</p>
+                <br>
+                <p><b>Example</b></p>
+                <p>if you redirect to the following URL http://xconnect.herokuapp/authorize?response_type=[...]&client_id=[...]&redirect_uri=https%3A%2F%2Ffs.fr%2Foidc_callback%3Ftestkey%3Dtestvalue&state=[...]&nonce=[...]&scope=[...]</p>
+                <p>XC will redirect to the SP at following URL: https://fs.fr/oidc_callback?testkey=testvalue&[...]</p>
+                <p>This helps keeping state whenever the starting and arivial web site do not share thier Web sessions.</p>
+              </div>
+
+              <p><b>REQUEST</b></p>
+              <div class="padding-left-20">
+                <p>URL: </p>
+                <pre>&lt;XC_URL&gt;/authorize?response_type=code&client_id=&lt;CLIENT_ID&gt;&redirect_uri=&lt;FS_URL&gt;%2F&lt;URL_CALLBACK&gt;&scope=&lt;SCOPES&gt;&state=&lt;STATE&gt;&nonce=&lt;NONCE&gt;</pre>
+                <p>Méthod : GET</p>
+              </div>
+
+
+              <p><b>RESPONSE</b></p>
+              <div class="padding-left-20">
+
+                <p>/</p>
+              </div>
+
+
+            </div>
+            <div class="box-shadow">
+              <p><b>&lt;FS_URL&gt;/&lt;URL_CALLBACK&gt; [Redirection]</b></p>
+              <hr>
+              <p><b>DESCRIPTION</b></p>
+              <div class="padding-left-20">
+                <p><b>Context : </b>The user has identified to the Identity Provider. X Connect redirects to the Service Provier callback URL with an authorization code in the URL</p>
+                <p><b>Origin : </b> XConnect Gateway</p>
+                <p><b>Target :</b> Service Provider</p>
+                <p><b>Call type :</b> navigator redirection </p>
+                <br>
+              </div>
+
+              <p><b>REQUEST</b></p>
+              <div class="padding-left-20">
+                <p>URL: </p>
+                <pre>&lt;FS_URL&gt;/&lt;URL_CALLBACK&gt;?code=&lt;AUTHZ_CODE&gt;&state=&lt;STATE&gt; </pre>
+                <p>Méthod : GET</p>
+              </div>
+
+            </div>
+            <div class="box-shadow">
+              <p><b>&lt;XC_URL&gt;/token [Web Service]</b></p>
+              <hr>
+              <p><b>DESCRIPTION</b></p>
+              <div class="padding-left-20">
+                <p><b>Context : </b>The Service Provider has retrieved an authorization code.  It now want to retrieve an access token and an id token</p>
+                <p><b>Origin : </b> Service Provider</p>
+                <p><b>Target :</b> XConnect Gateway</p>
+                <p><b>Call type :</b> Web service call </p>
+              </div>
+
+              <p><b>REQUEST</b></p>
+              <div class="padding-left-20">
+                <p>URL: </p>
+                <pre>&lt;XC_URL&gt;/token/</pre>
+                <p>Méthod : POST</p>
+              </div>
+
+
+              <p><b>RESPONSE</b></p>
+              <div class="padding-left-20">
+                <p>HTTP body :</p>
+
+                <pre>{'access_token': &lt;ACCESS_TOKEN&gt;, 'token_type': 'Bearer', 'expires_in': 3600, 'id_token': &lt;ID_TOKEN&gt;}</pre>
+
+                <p>/</p>
+              </div>
+
+
+            </div>
+            <div class="box-shadow">
+              <p><b>&lt;XC_URL&gt;/userinfo [Web Service]</b></p>
+              <hr>
+              <p><b>DESCRIPTION</b></p>
+              <div class="padding-left-20">
+                <p><b>Context : </b> The Service Provider has retrieved an access token,.It now wants to retrieve the User Info.</p>
+                <p><b>Origin : </b> Service Provider</p>
+                <p><b>Target :</b> XConnect Gateway</p>
+                <p><b>Call type :</b> Web service </p>
+              </div>
+
+              <p><b>REQUEST</b></p>
+              <div class="padding-left-20">
+                <p>URL: </p>
+                <pre>&lt;XC_URL&gt;/userinfo?schema=openid/authorize?response_type=code&client_id</pre>
+                <p>Méthod : GET</p>
+                <p>HTTP header: Authorization = 'Bearer <b>&lt;ACCESS_TOKEN&gt;</b>'</p>
+              </div>
+
+
+              <p><b>RESPONSE</b></p>
+              <div class="padding-left-20">
+                <p>HTTP Body </p>
+                <pre>&lt;USER_INFO&gt;</pre>
+              </div>
+
+
+            </div>
+          </div>
+          <h2>User Data</h2>
+          <div class="padding-left-20">
+            <p>LIST OF AVAILABLE SCOPES FOR THE X CONNECT AUTHENTICATION STEPS </p>
+            <div class="box-shadow">
+              <p><b>X CONNECT PERSONAL USER</b></p>
+              <hr>
+              <p><b>The principal scopes (pivot identity)</b></p>
+              <ul>
+                <li><p><b>openid * :</b> the technical identity (sub) of the user following the OpenIDConnect format will be returned</p></li>
+                <li><p><b>gender :</b> the gender of the user will be returned</p></li>
+                <li><p><b>birthdate :</b>the birthdate of the user will be returned</p></li>
+                <li><p><b>birthcountry :</b> the birthcoutry of the user will be returned</p></li>
+                <li><p><b>birthplace :</b> the birthplace of user will be returned</p></li>
+                <li><p><b>given_name :</b> the given name of the user will be returned</p></li>
+                <li><p><b>family_name :</b> the family name of the user will be returned</p></li>
+                <li><p><b>email :</b> the email adress of the user will be returnedv</p></li>
+              </ul>
+              <p><b>The optionnal scope (sent information when available)</b></p>
+
+              <ul>
+                <li><p><b>preferred_username : </b>the preferred name of the user will be returned</p></li>
+                <li><p><b>address : </b>the postal address of the user will be returned</p></li>
+                <li><p><b>phone : </b>the telephone number of the user will be returned</p></li>
+              </ul>
+              <p><b>The "aliases"</b></p>
+
+              <ul>
+                <li><p><b>identite_pivot : </b>combines the following</p></li>
+                <li><p><b>scoopes : </b>given_name, family_name, preferred_username, birthdate, gender, birthplace and birthcountry</p></li>
+                <li><p><b>profile : </b>combines the following scoopes given_name, family_name, preferred_username, birthdate and gender</p></li>
+                <li><p><b>birth : </b>combines the following scoopes birthplace and birthcountry. allows the retrieval of the city and county of birth.</p></li>
+              </ul>
+
+
+
+
+
+
+
+
+            </div>
+            <div class="box-shadow">
+              <p><b>X CONNECT BUSINESS USER</b></p>
+              <hr>
+              <ul>
+                <li><p><b>openid * :</b> the technical identity (sub) of the user following the OpenIDConnect format will be returned</p></li>
+                <li><p><b>profile * :</b> help retrieve the pivot identity. If possible returns the "preferred_username"</p></li>
+                <br>
+              </ul>
+              <p><b> * mandatory</b></p>
+              <p><i>This list of scopes is defined by the OpenIDConnect standard : http://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims</i></p>
+
+
+
+
+
+
+
+
+
+
+            </div>
+          </div>
+          <h2>Integration of the XConnect button and kit</h2>
+          <div class="padding-left-20">
+            <p>The XConnect action button and kit are essential for the use of the service. It is mandatory to use the following button and no other for the connection of the users</p>
+            <img src="assets/images/login.svg" alt="login btn" style="height: 60px;">
+            <br>
+            <p><b>XConnect kit after connecting - click on user</b></p>
+            <ul>
+              <li><p>John Kibaku</p></li>
+              <li><p>Include the XConnect javascript library at the bottom of the page :</p></li>
+            </ul>
+            <pre>&lt;script src="http://xconnect.herokuapp/js/xconnect.js"&gt;&lt;/script&gt;</pre>
+
+            <ul>
+              <li><p>Insert in the HTML code tje following structure :</p></li>
+            </ul>
+            <pre>&lt;div id="xconnect-profile" data-xc-logout-url="/lien-deconnexion"&gt;&lt;a href="#"&gt; le nom de l'utilisateur connecté* &lt;/a&gt;&lt;/div&gt;&gt;&lt;/script&gt;</pre>
+
+            <ul>
+              <li><p>Configure the variables :</p></li>
+
+            </ul>
+            <table class="bordered box-shadow">
+              <tbody>
+                <tr>
+                  <td>data-xc-logout-url</td>
+                  <td>Insert the disconnect link</td>
+                </tr>
+                <tr>
+                  <td>Utilisateur</td>
+                  <td>Replace by the name of the connected user</td>
+
+                </tr>
+
+
+              </tbody>
+            </table>
+            <p>The user has to be connected to XConnect for this block to be displayed. </p>
+          </div>
+          <h2>Service Provider Request for a minimal security level at authentication</h2>
+          <div class="padding-left-20">
+            <p>With XConnect, a client application actually relies on third party Authentication Provider to perform the user authentication. Possibility should there be given to the application to request that the user gets authenticated with more or less securty depending on their sensitivity (the application). A abnk web application may require a two factor authentication where a food orering web service may be happy with a single factir.</p>
+
+            <p>As the OpenIDConnect standard does not provide specific technical guideline, XConnect uses the "acr" optional claim (http://openid.net/specs/openid-connect-basic-1_0.html#RequestParameters) of the OpenIDConnect standard. the Service  Provider, will therefore have to fill the acr_values optional claim for the authentication request (call to the /authorize endpoint)</p>
+
+            <p>Concerning the acr_values claim, it is, according to the standard a volontary claim which in theory reflects a preference rather than an obligation. By providing this claim, XConnect will filter the Authentication Providers that correspond to the security level requested. The Authentication Provider will in addition return via XConnect the security level whith which they actually authenticated the user.  The SP will then be able to verify the security level.</p>
+
+            <p>Exemple of a call with a request for a minimal authentication level at Identity Provider:</p>
+            <pre>http://xconnect.herokuapp/authorize?response_type=code&client_id=123456&redirect_uri=http%3A%2F%2Ffsp1.dev.dev-franceconnect.fr%2Foidc_callback%3Ftestkey%3Dtestvalue&scope=openid%20profile%20email%20address%20phone%20preferred_username%20email%20address%20phone%20preferred_username&acr_values=eidas</pre>
+            <p>One of the following values will have to be specified</p>
+            <p><b>eidas1 :</b> standard level (example : authentification by identifier / password)</p>
+            <p><b>eidas2 :</b> sustantial level (example : "two factor authentification)</p>
+            <p><b>eidas3 :</b> high level (example : use of certificats, card reader ...)</p>
+            <p>If the claim is not specified, XConnect does not filter the Authentication Providers. if a specific level is requested, XConnect will only suggest to the user those Auth Providers with the specified level or higher. In the case of an invalid claim, XConnect will suggest an authentication page with all available Authentication Providers.</p>
+
+
+
+
+          </div>
+        </div>
+        <div class="bs-docs-section">
+          <h1 class="page-header" id="disconnect">I want to disconnect the user from XConnect</h1>
+          <div class="padding-left-20">
+            <p>XConnect implements the disconnection as being specified in the OpenID Connect standard :http://openid.net/specs/openid-connect-session-1_0.html#RPLogout</p>
+            <p>The SP should be able to propose the disconnection to its user. Here is the global kinematic:</p>
+            <ul>
+              <li><p>The user clicks on the deconnection link presented by the SP</p></li>
+              <li><p>The SP shall <b>disconnect</b> the user from the application then redirect them to the deconnection page of XConnect  : &lt;XC_URL&gt;/logout</p></li>
+              <li><p>From there, if they like, the user is disconnected from the XConnect service</p></li>
+              <li><p>The user is redirected to the return page specified by the SP</p></li>
+              <li><p>The SP should indicate the URL where the user will be redirected once they have chosen to disconnect from XConnect. -(This is done via the <b>post_logout_redirect_uri parameter</b>). The SP should also pass the id_token at the time of the authentication, via the id_token_hint parameter.</p></li>
+              <li><p>The deconnection URLs will have to be specified as part of the client parameters.</p></li>
+            </ul>
+
+          </div>
+          <div class="padding-left-20">
+            <div class="box-shadow">
+              <p><b>&lt;XC_URL&gt;/logout [Redirection]</b></p>
+              <hr>
+              <p><b>REQUETE</b></p>
+              <p>URL: </p>
+              <pre>&lt;XC_URL&gt;/authorize?response_type=code&client_id=&lt;CLIENT_ID&gt;&redirect_uri=&lt;FS_URL&gt;%2F&lt;URL_CALLBACK&gt;&scope=&lt;SCOPES&gt;&state=&lt;STATE&gt;&nonce=&lt;NONCE&gt;</pre>
+              <p>Méthod : GET</p>
+            </div>
+
+
+
+
+          </div>
+        </div>
+        <div class="bs-docs-section">
+          <h1 class="page-header" id="errors">Error handling between XConnect and the Service Provider</h1>
+          <div class="padding-left-20">
+            <p>As an OpenIDConnect compatible Identity Provider, XConnext can return all sorts of errors to a client application. To do so, XConnect uses the error response codes as specified here  (http://openid.net/specs/openid-connect-core-1_0.html#AuthError, en particulier les sections 3.1.2.6 (authentification), 3.1.3.4 (jeton d'accès), 5.3.3 (service d'informations utilisateur) )</p>
+
+          </div>
+
+        </div>
+        <div class="bs-docs-section">
+          <h1 class="page-header" id="expire">XConnect data that expire</h1>
+          <div class="padding-left-20">
+
+            <p>XConnect handles several expirable data during the OpenID Connect authentication or ressource grant processes (OAuth2) flows. Each of these data has a specific lifetime above which they have to be regenareted. The details follow:</p>
+          </div>
+
+
+        </div>
+        <div class="bs-docs-section">
+          <h1 class="page-header" id="support">Support</h1>
+          <div class="padding-left-20">
+
+            <p>Service Providers can email us at contact@fiatope.com for any question relative to the implementation of XConnect</p>
+          </div>
+
+
+        </div>
+        <div class="bs-docs-section">
+          <h1 class="page-header" id="glossary">Glossary</h1>
+          <div class="padding-left-20">
+            <table class="bordered box-shadow">
+              <tbody>
+                <tr>
+                  <td><b>XC_URL</b></td>
+                  <td>XConnect URL</td>
+                </tr>
+                <tr>
+                  <td><b>FS_URL</b></td>
+                  <td>Your URL as a Service Provider </td>
+
+                </tr>
+                <tr>
+                  <td><b>FD_URL</b></td>
+                  <td>Data Provider URL</td>
+
+                </tr>
+                <tr>
+                  <td><b>CALLBACK_URL_DATA</b>	</td>
+                  <td>The Service Provider CallBack URL, Communicated at subcription to XConnect</td>
+
+                </tr>
+                <tr>
+                  <td><b>DATA_ENDPOINT</b></td>
+                  <td>Endpoint where the Data provider exposes the protected ressource. It is to be communicated bu the Data Provider</td>
+
+                </tr>
+                <tr>
+                  <td><b>POST_LOGOUT_REDIRECT_URI</b></td>
+                  <td>redirection URL adter the user has asked to disconnect from XConnect.</td>
+                </tr>
+                <tr>
+                  <td><b>CLIENT_ID</b></td>
+                  <td>Service Provider Identifier, communicated at subcription to X Connect</td>
+                </tr>
+                <tr>
+                  <td><b>CLIENT_SECRET</b></td>
+                  <td>Service Provider secret, communicated at subscription to X Connect</td>
+                </tr>
+                <tr>
+                  <td><b>AUTHZ_CODE</b></td>
+                  <td>	Code returned (inside the URL) by XConnect to the Service Provider when it makes a call to the XC_URL/authorize endpoint. It is subsequently passed (into the body of the HTTP POST request) for the call to the XC_URL/token endpoint</td>
+                </tr>
+                <tr>
+                  <td><b>ACCESS_TOKEN</b></td>
+                  <td>Token returned (inside the HTTP body) following call to the XC_URL /token endpoint. It is then passed (inside the URL) for the call to the XC_URL/userinfo endpoint.</td>
+                </tr>
+                <tr>
+                  <td><b>SCOPES</b></td>
+                  <td>List of requested scopes separated by spaces (hence by %20 following the unicode format inside the l'URL). Hre is the list of scopes supported by XConnect
+                    <ul>
+                      <li><b>openid :</b>mandatory, is used to request the technical identity (sub) of the user following the OpenIDConnect format</li>
+                      <li><b>profile :</b>mandatory, is used to retrieve the pivot identity of the user. If available, also returns the preferred_username</li>
+                      <li><b>birth :</b>mandatory, is sued to retrieve the city and the province of birth of the user</li>
+                      <li><b>email : </b>optional, if available, returns the user email address</li>
+                      <li><b>address :</b>optional, if available, returns the user postal address</li>
+                      <li><b>phone :</b>optional, if available, returns the user phone number</li>
+
+                    </ul>
+                    This list of scopes is defined by the OpenIDConnect standard.
+                    <br>
+                    The complete pivotal identity is retrieved via two different scopes (profile + birth) because the city and province of birth are not part of the data that are returned at the invocation of the unique profile scope. We do the concatenation as shown n order to conform to the standard..
+                  </td>
+
+                </tr>
+                <tr>
+                  <td><b>ID_TOKEN</b></td>
+                  <td>JWT object returned by call to the XC_URL/token endpoint. The JWT object is a formatted and signed object. The JSON should contain the five following keys: aud,exp,iat,iss,sub.
+
+<!--                     Example :
+                    <br>
+                    <div class="highlight">
+                    <pre> {'aud':'895fae591ccae777094931e269e46447', 'exp':1412953984, 'iat':1412950384, 'iss':http://xconnect.com, 'sub':YWxhY3JpdMOp, 'idp':'FC', 'nonce':'12344354597459'} </pre>
+                  </div> -->
+                  Détail of the fields :
+                  <ul>
+                    <li><b>aud, exp, iat, iss, sub :</b> are mandatory fileds of the OpenIDConnect standard.</li>
+                    <li><b>nonce :</b>mandatory parameter sent at the time of the /autorize call. The Service Provider should imperatively verify that the value corresponds to the one it sent, and which is linked to the user session. </li>
+                  </ul>
+                  If you use a library to convert the json into JWT, it will generate a string with 3 base64 chains separated by a dot. constitué de 3 chaînes base64 séparées par un point. <br>
+                  I order to verify the signature, you have to use the secret shared with XConnect that was allocated to you at application subscription.
+                </td>
+
+
+
+
+
+              </tr>
+              <tr>
+                <td><b>ID_TOKEN_HINT</b></td>
+                <td>JWT object, having the same format as the ID_TOKEN, which was received following the call at the XC_URL/token endpoint and that should be passed as parameter for the call at XC_URL/logout</td>
+              </tr>
+              <tr>
+                <td><b>USER_INFO</b></td>
+                <td>See the pivotal identity section</td>
+              </tr>
+              <tr>
+                <td><b>STATE</b></td>
+                <td>	Mandatory field randomly generated by the Service Provider, that XConnect sends back unchanged in the redirection following the authentication, to be further verified by the Service Provider. It is used against Cross Site Rquest Forgery flaws.</td>
+              </tr>
+              <tr>
+                <td><b>NONCE</b></td>
+                <td>Mandatory field randomly generated by the Service Provider, that XConnect sends back unchanged in the response to the token call, to be further verified by the Service Provider. It is used agains Repaly attacks.</td>
+              </tr>
+              <tr>
+                <td><b>SUB</b></td>
+                <td>Technical identifier (unique and permnanent over time for a given user pour un individu donné) provided by XConnect to the Service Provider. The sub is present in the IdToken returned to the Service Provider as well as in other identity information.. The sub as returned by XConnect is specific to each Service Provider, meaning that a single user would have two different scopes for two different applications.</td>
+              </tr>
+            </tbody>
+          </table>
+
+
+        </div>
+
+
+      </div>
+
+    </div>
+    <div class="col-md-3" role="complementary">
+      <nav class="bs-docs-sidebar hidden-print hidden-sm hidden-xs affix" data-spy="affix" data-offset-top="250" id="side-nav">
+        <ul class="nav bs-docs-sidenav">
+          <li class="">
+            <a href="#baseconcepts">Base Concepts</a>
+          </li>
+          <li class="">
+            <a href="#identify">Identify/authenticate users</a>
+          </li>
+          <li class="">
+            <a href="#disconnect">Disconnect the user from XConnect</a>
+          </li>
+          <li class="">
+            <a href="#errors">Error handling between XConnect and the Service Provider</a>
+          </li>
+          <li class="">
+            <a href="#expire">XConnect data that expire</a>
+          </li>
+          <li class="">
+            <a href="#support">Support</a>
+          </li>
+          <li class="">
+            <a href="#glossary">Glossary</a>
+          </li>
+        </ul>
+        <div class="others-links">
+          <div class="signup">
+            <a href="signup" id="signup">Sign Up</a>
+          </div>
+          <div class="accountmanagement">
+            <a href="https://x-connect.herokuapp.com/">Account Management</a>
+          </div>
+          <div class="examplecode">
+            <a href="examplecode">Exemple Code</a>
+          </div>
+        </div>
+      </nav>
+
+
+
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Footer Section -->
+<div class="footer">
+  <div class="container">
+    <div class="col-md-12 text-center">
+      <ul class="footer-menu">
+        <li><a href="index">Home</a></li>
+        <li><a href="contact">Contact</a></li>
+        <li><a href="terms">Terms & Privacy</a></li>
+      </ul>
+      <div class="footer-text">
+        <p>
+          Copyright © 2016 XConnect All Rights Reserved.
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+<!-- Jquery and Js Plugins -->
+<script type="text/javascript" src="assets/js/jquery-2.1.1.js"></script>
+<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="assets/js/custom.js"></script>
+
+</html>
